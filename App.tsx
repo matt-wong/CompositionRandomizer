@@ -2,27 +2,38 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import { Svg1, Svg2, Svg3, Svg4 } from './assets/svgs';
+import { Svg } from 'react-native-svg';
 
 const App = () => {
   const svgs: JSX.Element[] = [<Svg1 key="1" />, <Svg2 key="2" />, <Svg3 key="3" />, <Svg4 key='4'/>];
-  const [currentSvg, setCurrentSvg] = useState<JSX.Element>(svgs[0]);
+  const [currentSvgs, setCurrentSvgs] = useState<JSX.Element[]>([]);
 
 
-  useEffect(() => {
-    // Randomly select an SVG when the component mounts
-    setCurrentSvg(svgs[Math.floor(Math.random() * svgs.length)]);
-  }, []);
-
-  const handleRandomize = () => {
-    setCurrentSvg(svgs[Math.floor(Math.random() * svgs.length)]);
+  const randomizeSvgs = () => {
+    const randomSvgs = [];
+    const numSvgs = Math.floor(Math.random() * svgs.length) + 1;
+    for (let i = 0; i < numSvgs; i++) {
+      const randomIndex = Math.floor(Math.random() * svgs.length);
+      randomSvgs.push(svgs[randomIndex]);
+    }
+    setCurrentSvgs(randomSvgs);
   };
 
-  // test
+  useEffect(() => {
+    randomizeSvgs();
+  }, []);
 
   return (
     <View style={styles.container}>
-      {currentSvg}
-      <Button title="Randomize SVG" onPress={handleRandomize}/>
+      <View style={styles.canvas}>
+        <Svg>
+        {currentSvgs.map((SvgComponent, index) => (
+          <Svg>{SvgComponent}</Svg>
+        ))}
+        </Svg>
+
+      </View>
+      <Button title="Randomize SVGs" onPress={randomizeSvgs} />
     </View>
   );
 };
@@ -33,6 +44,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  canvas: {
+    borderWidth: 2,
+    borderColor: 'black',
+    padding: 20,
+    marginBottom: 20,
+    width: 350,
+    height: 350
   },
 });
 
