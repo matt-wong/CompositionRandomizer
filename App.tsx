@@ -1,10 +1,10 @@
 // App.js
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-import { Svg1, Svg2, Svg3 } from './assets/svgs';
+import { Svg1, Svg2, Svg3, Svg4 } from './assets/svgs';
 
 const App = () => {
-  const svgs: JSX.Element[] = [<Svg1 key="1" />, <Svg2 key="2" />, <Svg3 key="3" />];
+  const svgs: JSX.Element[] = [<Svg1 key="1" />, <Svg2 key="2" />, <Svg3 key="3" />, <Svg4 key='4'/>];
   const [currentSvg, setCurrentSvg] = useState<JSX.Element>(svgs[0]);
 
 
